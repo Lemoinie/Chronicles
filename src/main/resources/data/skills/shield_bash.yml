@@ -1,0 +1,8 @@
+id: shield_bash
+display-name: "Shield Bash"
+description: "Bashes an enemy with your shield, stunning them briefly."
+max-level: 3
+prerequisites: []
+allowed-classes:
+  - warrior
+  - paladin

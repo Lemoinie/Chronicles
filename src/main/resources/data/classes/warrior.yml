@@ -1,0 +1,21 @@
+id: warrior
+display-name: "Warrior"
+description: "A powerful melee fighter who excels in close combat."
+stat-modifiers:
+  - stat: STRENGTH
+    value: 10
+    type: FLAT
+  - stat: VITALITY
+    value: 8
+    type: FLAT
+  - stat: DEFENSE
+    value: 0.15
+    type: PERCENT
+  - stat: INTELLIGENCE
+    value: -3
+    type: FLAT
+allowed-skills:
+  - shield_bash
+  - iron_skin
+  - berserker_rage
+  - war_cry
