@@ -4,7 +4,7 @@ import com.test.chronicles.api.event.ChroniclesEvent;
 import com.test.chronicles.api.profile.PlayerProfile;
 import com.test.chronicles.origin.Origin;
 
-public class OriginChangeEvent extends ChroniclesEvent {
+public class OriginChangeEvent implements ChroniclesEvent {
     private final PlayerProfile profile;
     private final Origin oldOrigin, newOrigin;
     public OriginChangeEvent(PlayerProfile profile, Origin oldOrigin, Origin newOrigin) {

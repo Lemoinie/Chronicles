@@ -1,0 +1,6 @@
+name: Chronicles
+version: 1.0-SNAPSHOT
+main: com.test.chronicles.Chronicles
+api-version: '1.21'
+author: Lemoinie
+description: Chronicles MMORPG Plugin

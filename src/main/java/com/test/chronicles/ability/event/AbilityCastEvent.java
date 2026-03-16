@@ -4,7 +4,7 @@ import com.test.chronicles.ability.Ability;
 import com.test.chronicles.api.event.ChroniclesEvent;
 import com.test.chronicles.api.profile.PlayerProfile;
 
-public class AbilityCastEvent extends ChroniclesEvent {
+public class AbilityCastEvent implements ChroniclesEvent {
     private final PlayerProfile profile;
     private final Ability ability;
     public AbilityCastEvent(PlayerProfile profile, Ability ability) {

@@ -4,7 +4,7 @@ import com.test.chronicles.api.event.ChroniclesEvent;
 import com.test.chronicles.api.profile.PlayerProfile;
 import com.test.chronicles.job.Job;
 
-public class JobLevelUpEvent extends ChroniclesEvent {
+public class JobLevelUpEvent implements ChroniclesEvent {
     private final PlayerProfile profile;
     private final Job job;
     private final int oldLevel, newLevel;

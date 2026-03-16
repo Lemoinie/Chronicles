@@ -1,0 +1,21 @@
+id: mage
+display-name: "Mage"
+description: "A master of arcane arts, wielding powerful spells."
+stat-modifiers:
+  - stat: INTELLIGENCE
+    value: 12
+    type: FLAT
+  - stat: MANA
+    value: 0.25
+    type: PERCENT
+  - stat: MANA_REGEN
+    value: 5
+    type: FLAT
+  - stat: DEFENSE
+    value: -5
+    type: FLAT
+allowed-skills:
+  - fireball
+  - frost_nova
+  - arcane_surge
+  - blink

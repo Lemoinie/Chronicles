@@ -1,0 +1,13 @@
+id: human
+display-name: "Human"
+description: "Adaptable and resilient. Jack of all trades."
+stat-modifiers:
+  - stat: LUCK
+    value: 0.05
+    type: PERCENT
+  - stat: STRENGTH
+    value: 2
+    type: FLAT
+  - stat: HEALTH
+    value: 20
+    type: FLAT

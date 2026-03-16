@@ -4,7 +4,7 @@ import com.test.chronicles.ability.PlayerAbilityData;
 import com.test.chronicles.job.PlayerJobData;
 import com.test.chronicles.quest.PlayerQuestData;
 import com.test.chronicles.skills.PlayerSkillData;
-import com.test.chronicles.stats.StatMap;
+import com.test.chronicles.attributes.AttributeMap;
 
 import java.util.UUID;
 
@@ -18,7 +18,7 @@ public class PlayerProfile {
     private final UUID uuid;
 
     // --- Sub-data blocks: each owned by exactly one module ---
-    private final StatMap           stats      = new StatMap();           // StatModule
+    private final AttributeMap      attributes = new AttributeMap();      // AttributeModule
     private final PlayerSkillData   skillData  = new PlayerSkillData();   // SkillModule
     private final PlayerJobData     jobData    = new PlayerJobData();     // JobModule
     private final PlayerAbilityData abilityData= new PlayerAbilityData(); // AbilityModule
@@ -37,7 +37,7 @@ public class PlayerProfile {
     public String getClassId()               { return classId; }
     public void   setClassId(String id)      { this.classId = id; }
 
-    public StatMap           getStats()       { return stats; }
+    public AttributeMap      getAttributes()  { return attributes; }
     public PlayerSkillData   getSkillData()   { return skillData; }
     public PlayerJobData     getJobData()     { return jobData; }
     public PlayerAbilityData getAbilityData() { return abilityData; }

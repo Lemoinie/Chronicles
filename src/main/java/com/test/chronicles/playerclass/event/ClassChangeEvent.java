@@ -4,7 +4,7 @@ import com.test.chronicles.api.event.ChroniclesEvent;
 import com.test.chronicles.api.profile.PlayerProfile;
 import com.test.chronicles.playerclass.PlayerClass;
 
-public class ClassChangeEvent extends ChroniclesEvent {
+public class ClassChangeEvent implements ChroniclesEvent {
     private final PlayerProfile profile;
     private final PlayerClass oldClass, newClass;
     public ClassChangeEvent(PlayerProfile p, PlayerClass o, PlayerClass n) {

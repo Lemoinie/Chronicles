@@ -6,7 +6,7 @@ import com.test.chronicles.api.module.ChroniclesModule;
 import com.test.chronicles.api.profile.PlayerProfile;
 import com.test.chronicles.origin.event.OriginChangeEvent;
 import com.test.chronicles.profile.event.ProfileLoadedEvent;
-import com.test.chronicles.stats.StatModifier;
+import com.test.chronicles.attributes.AttributeModifier;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.io.File;
@@ -20,7 +20,7 @@ public class OriginModule implements ChroniclesModule {
     public OriginModule(ModuleEventBus bus) { this.bus = bus; }
 
     @Override public String getId() { return "origin"; }
-    @Override public List<String> getDependencies() { return List.of("stats"); }
+    @Override public List<String> getDependencies() { return List.of("attributes"); }
 
     @Override
     public void onEnable(Chronicles plugin) {
@@ -37,10 +37,10 @@ public class OriginModule implements ChroniclesModule {
 
     public void setOrigin(PlayerProfile profile, Origin newOrigin) {
         Origin old = registry.get(profile.getOriginId());
-        profile.getStats().beginBatch();
-        if (old != null) profile.getStats().removeModifiersFromSource("origin:" + old.getId());
-        for (StatModifier m : newOrigin.getStatModifiers()) profile.getStats().addModifier(m);
-        profile.getStats().endBatch();
+        profile.getAttributes().beginBatch();
+        if (old != null) profile.getAttributes().removeModifiersFromSource("origin:" + old.getId());
+        for (AttributeModifier m : newOrigin.getAttributeModifiers()) profile.getAttributes().addModifier(m);
+        profile.getAttributes().endBatch();
         profile.setOriginId(newOrigin.getId());
         bus.publish(new OriginChangeEvent(profile, old, newOrigin));
     }
@@ -49,9 +49,9 @@ public class OriginModule implements ChroniclesModule {
         if (profile.getOriginId() == null) return;
         Origin origin = registry.get(profile.getOriginId());
         if (origin == null) return;
-        profile.getStats().beginBatch();
-        for (StatModifier m : origin.getStatModifiers()) profile.getStats().addModifier(m);
-        profile.getStats().endBatch();
+        profile.getAttributes().beginBatch();
+        for (AttributeModifier m : origin.getAttributeModifiers()) profile.getAttributes().addModifier(m);
+        profile.getAttributes().endBatch();
     }
 
     @Override

@@ -1,0 +1,16 @@
+id: woodcutting
+display-name: "Woodcutting"
+description: "Harvest logs from trees more efficiently as you level up."
+max-level: 50
+# XP required to reach each level (index 0 = XP needed to go from level 0 to level 1)
+level-xp:
+  - 100
+  - 220
+  - 380
+  - 600
+  - 900
+  - 1300
+  - 1800
+  - 2500
+  - 3400
+  - 4500

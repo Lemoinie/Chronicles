@@ -1,14 +1,14 @@
 package com.test.chronicles.origin;
 
-import com.test.chronicles.stats.ModifierType;
-import com.test.chronicles.stats.StatModifier;
-import com.test.chronicles.stats.StatType;
-import org.bukkit.configuration.ConfigurationSection;
+import com.test.chronicles.attributes.ModifierType;
+import com.test.chronicles.attributes.AttributeModifier;
+import com.test.chronicles.attributes.AttributeType;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Data-driven origin loaded from a YAML file.
@@ -30,9 +30,9 @@ import java.util.List;
 public class YamlOrigin implements Origin {
 
     private final String id, displayName, description;
-    private final List<StatModifier> modifiers;
+    private final List<AttributeModifier> modifiers;
 
-    private YamlOrigin(String id, String displayName, String description, List<StatModifier> modifiers) {
+    private YamlOrigin(String id, String displayName, String description, List<AttributeModifier> modifiers) {
         this.id = id; this.displayName = displayName;
         this.description = description; this.modifiers = List.copyOf(modifiers);
     }
@@ -43,13 +43,14 @@ public class YamlOrigin implements Origin {
         String name = cfg.getString("display-name", id);
         String desc = cfg.getString("description", "");
 
-        List<StatModifier> mods = new ArrayList<>();
-        var list = cfg.getMapList("stat-modifiers");
-        for (var entry : list) {
-            StatType type = StatType.valueOf(entry.get("stat").toString());
+        List<AttributeModifier> mods = new ArrayList<>();
+        List<Map<?, ?>> list = cfg.getMapList("stat-modifiers");
+        for (Map<?, ?> entry : list) {
+            AttributeType type = AttributeType.valueOf(entry.get("stat").toString());
             double value  = Double.parseDouble(entry.get("value").toString());
-            ModifierType mt = ModifierType.valueOf(entry.getOrDefault("type", "FLAT").toString());
-            mods.add(new StatModifier("origin:" + id, type, value, mt));
+            Object mtObj = entry.get("type");
+            ModifierType mt = ModifierType.valueOf(mtObj != null ? mtObj.toString() : "FLAT");
+            mods.add(new AttributeModifier("origin:" + id, type, value, mt));
         }
         return new YamlOrigin(id, name, desc, mods);
     }
@@ -57,5 +58,5 @@ public class YamlOrigin implements Origin {
     @Override public String getId() { return id; }
     @Override public String getDisplayName() { return displayName; }
     @Override public String getDescription() { return description; }
-    @Override public List<StatModifier> getStatModifiers() { return modifiers; }
+    @Override public List<AttributeModifier> getAttributeModifiers() { return modifiers; }
 }

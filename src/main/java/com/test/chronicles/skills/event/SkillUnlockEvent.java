@@ -4,7 +4,7 @@ import com.test.chronicles.api.event.ChroniclesEvent;
 import com.test.chronicles.api.profile.PlayerProfile;
 import com.test.chronicles.skills.Skill;
 
-public class SkillUnlockEvent extends ChroniclesEvent {
+public class SkillUnlockEvent implements ChroniclesEvent {
     private final PlayerProfile profile;
     private final Skill skill;
     private final int newLevel;

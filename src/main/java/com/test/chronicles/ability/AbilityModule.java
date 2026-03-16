@@ -5,7 +5,7 @@ import com.test.chronicles.api.event.ModuleEventBus;
 import com.test.chronicles.api.module.ChroniclesModule;
 import com.test.chronicles.api.profile.PlayerProfile;
 import com.test.chronicles.ability.event.AbilityCastEvent;
-import com.test.chronicles.stats.StatType;
+import com.test.chronicles.attributes.AttributeType;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
@@ -21,7 +21,7 @@ public class AbilityModule implements ChroniclesModule {
     public AbilityModule(ModuleEventBus bus) { this.bus = bus; }
 
     @Override public String getId() { return "abilities"; }
-    @Override public List<String> getDependencies() { return List.of("stats", "skills", "class"); }
+    @Override public List<String> getDependencies() { return List.of("attributes", "skills", "class"); }
 
     @Override
     public void onEnable(Chronicles plugin) {
@@ -43,11 +43,11 @@ public class AbilityModule implements ChroniclesModule {
         if (!profile.getAbilityData().hasUnlocked(abilityId)) return false;
         if (cooldowns.isOnCooldown(player.getUniqueId(), abilityId)) return false;
 
-        double currentMana = profile.getStats().getFinal(StatType.MANA);
+        double currentMana = profile.getAttributes().getFinal(AttributeType.MANA);
         if (currentMana < ability.getManaCost()) return false;
 
         // Deduct mana base value and apply cooldown
-        profile.getStats().setBase(StatType.MANA, profile.getStats().getBase(StatType.MANA) - ability.getManaCost());
+        profile.getAttributes().setBase(AttributeType.MANA, profile.getAttributes().getBase(AttributeType.MANA) - ability.getManaCost());
         cooldowns.setCooldown(player.getUniqueId(), abilityId, ability.getCooldownSeconds());
         bus.publish(new AbilityCastEvent(profile, ability));
         return true;

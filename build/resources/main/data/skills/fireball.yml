@@ -1,0 +1,8 @@
+id: fireball
+display-name: "Fireball"
+description: "Hurls a ball of fire that explodes on impact."
+max-level: 5
+prerequisites: []
+allowed-classes:
+  - mage
+  - wizard

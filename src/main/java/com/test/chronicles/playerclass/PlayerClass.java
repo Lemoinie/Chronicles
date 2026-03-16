@@ -1,6 +1,6 @@
 package com.test.chronicles.playerclass;
 
-import com.test.chronicles.stats.StatModifier;
+import com.test.chronicles.attributes.AttributeModifier;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public interface PlayerClass {
     String getId();
     String getDisplayName();
     String getDescription();
-    List<StatModifier> getStatModifiers();
+    List<AttributeModifier> getAttributeModifiers();
     /** Skill IDs this class is allowed to use. Empty = no restriction. */
     List<String> getAllowedSkills();
 }

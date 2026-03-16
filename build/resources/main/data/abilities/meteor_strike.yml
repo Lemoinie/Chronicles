@@ -1,0 +1,7 @@
+id: meteor_strike
+display-name: "Meteor Strike"
+description: "Calls down a blazing meteor from the sky onto your target."
+cooldown-seconds: 30
+mana-cost: 50
+required-class: mage
+required-skill: fireball

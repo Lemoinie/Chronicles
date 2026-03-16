@@ -1,0 +1,13 @@
+id: elf
+display-name: "Elf"
+description: "Graceful and perceptive, gifted in magic and archery."
+stat-modifiers:
+  - stat: AGILITY
+    value: 5
+    type: FLAT
+  - stat: INTELLIGENCE
+    value: 4
+    type: FLAT
+  - stat: MANA
+    value: 0.10
+    type: PERCENT

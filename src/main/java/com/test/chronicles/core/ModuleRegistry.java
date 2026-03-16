@@ -26,7 +26,7 @@ public class ModuleRegistry {
             try {
                 m.onEnable(plugin);
                 enableOrder.add(m);
-                LOG.info("[Chronicles] Enabled: " + m.getId());
+                LOG.info("[Chronicles] " + capitalize(m.getId()) + " enabled successfully.");
             } catch (Exception ex) {
                 LOG.severe("[Chronicles] Failed to enable: " + m.getId() + " — " + ex.getMessage());
             }
@@ -37,10 +37,18 @@ public class ModuleRegistry {
         ListIterator<ChroniclesModule> it = enableOrder.listIterator(enableOrder.size());
         while (it.hasPrevious()) {
             ChroniclesModule m = it.previous();
-            try { m.onDisable(); LOG.info("[Chronicles] Disabled: " + m.getId()); }
+            try { 
+                m.onDisable(); 
+                LOG.info("[Chronicles] " + capitalize(m.getId()) + " disabled successfully."); 
+            }
             catch (Exception ex) { LOG.severe("[Chronicles] Failed to disable: " + m.getId()); }
         }
         enableOrder.clear();
+    }
+
+    private String capitalize(String str) {
+        if (str == null || str.isEmpty()) return str;
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 
     public ChroniclesModule getModule(String id) { return modules.get(id); }

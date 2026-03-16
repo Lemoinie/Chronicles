@@ -1,6 +1,6 @@
 package com.test.chronicles.origin;
 
-import com.test.chronicles.stats.StatModifier;
+import com.test.chronicles.attributes.AttributeModifier;
 
 import java.util.List;
 
@@ -12,5 +12,5 @@ public interface Origin {
     String getId();
     String getDisplayName();
     String getDescription();
-    List<StatModifier> getStatModifiers();
+    List<AttributeModifier> getAttributeModifiers();
 }

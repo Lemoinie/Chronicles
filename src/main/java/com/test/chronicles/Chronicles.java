@@ -9,7 +9,7 @@ import com.test.chronicles.playerclass.ClassModule;
 import com.test.chronicles.profile.ProfileModule;
 import com.test.chronicles.quest.QuestModule;
 import com.test.chronicles.skills.SkillModule;
-import com.test.chronicles.stats.StatModule;
+import com.test.chronicles.attributes.AttributeModule;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Chronicles extends JavaPlugin {
@@ -25,7 +25,7 @@ public class Chronicles extends JavaPlugin {
         // Registration order matters for getDependencies(), but the registry
         // will topologically sort regardless — this is just for clarity.
         moduleRegistry.register(new ProfileModule(eventBus));
-        moduleRegistry.register(new StatModule(eventBus));
+        moduleRegistry.register(new AttributeModule(eventBus));
         moduleRegistry.register(new OriginModule(eventBus));
         moduleRegistry.register(new ClassModule(eventBus));
         moduleRegistry.register(new SkillModule(eventBus));

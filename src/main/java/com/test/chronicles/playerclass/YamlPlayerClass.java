@@ -1,13 +1,14 @@
 package com.test.chronicles.playerclass;
 
-import com.test.chronicles.stats.ModifierType;
-import com.test.chronicles.stats.StatModifier;
-import com.test.chronicles.stats.StatType;
+import com.test.chronicles.attributes.ModifierType;
+import com.test.chronicles.attributes.AttributeModifier;
+import com.test.chronicles.attributes.AttributeType;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Data-driven class loaded from YAML.
@@ -32,11 +33,11 @@ import java.util.List;
 public class YamlPlayerClass implements PlayerClass {
 
     private final String id, displayName, description;
-    private final List<StatModifier> modifiers;
+    private final List<AttributeModifier> modifiers;
     private final List<String> allowedSkills;
 
     private YamlPlayerClass(String id, String displayName, String description,
-                            List<StatModifier> modifiers, List<String> allowedSkills) {
+                            List<AttributeModifier> modifiers, List<String> allowedSkills) {
         this.id = id; this.displayName = displayName; this.description = description;
         this.modifiers = List.copyOf(modifiers); this.allowedSkills = List.copyOf(allowedSkills);
     }
@@ -44,12 +45,14 @@ public class YamlPlayerClass implements PlayerClass {
     public static YamlPlayerClass fromFile(File file) {
         YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
         String id = cfg.getString("id", file.getName().replace(".yml", ""));
-        List<StatModifier> mods = new ArrayList<>();
-        for (var entry : cfg.getMapList("stat-modifiers")) {
-            StatType type = StatType.valueOf(entry.get("stat").toString());
+        List<AttributeModifier> mods = new ArrayList<>();
+        List<Map<?, ?>> list = cfg.getMapList("stat-modifiers");
+        for (Map<?, ?> entry : list) {
+            AttributeType type = AttributeType.valueOf(entry.get("stat").toString());
             double value  = Double.parseDouble(entry.get("value").toString());
-            ModifierType mt = ModifierType.valueOf(entry.getOrDefault("type", "FLAT").toString());
-            mods.add(new StatModifier("class:" + id, type, value, mt));
+            Object typeObj = entry.get("type");
+            ModifierType mt = ModifierType.valueOf(typeObj != null ? typeObj.toString() : "FLAT");
+            mods.add(new AttributeModifier("class:" + id, type, value, mt));
         }
         return new YamlPlayerClass(id, cfg.getString("display-name", id),
                 cfg.getString("description", ""), mods, cfg.getStringList("allowed-skills"));
@@ -58,6 +61,6 @@ public class YamlPlayerClass implements PlayerClass {
     @Override public String getId() { return id; }
     @Override public String getDisplayName() { return displayName; }
     @Override public String getDescription() { return description; }
-    @Override public List<StatModifier> getStatModifiers() { return modifiers; }
+    @Override public List<AttributeModifier> getAttributeModifiers() { return modifiers; }
     @Override public List<String> getAllowedSkills() { return allowedSkills; }
 }

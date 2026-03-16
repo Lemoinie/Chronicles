@@ -6,7 +6,7 @@ import com.test.chronicles.api.module.ChroniclesModule;
 import com.test.chronicles.api.profile.PlayerProfile;
 import com.test.chronicles.playerclass.event.ClassChangeEvent;
 import com.test.chronicles.profile.event.ProfileLoadedEvent;
-import com.test.chronicles.stats.StatModifier;
+import com.test.chronicles.attributes.AttributeModifier;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.io.File;
@@ -20,7 +20,7 @@ public class ClassModule implements ChroniclesModule {
     public ClassModule(ModuleEventBus bus) { this.bus = bus; }
 
     @Override public String getId() { return "class"; }
-    @Override public List<String> getDependencies() { return List.of("stats", "origin"); }
+    @Override public List<String> getDependencies() { return List.of("attributes", "origin"); }
 
     @Override
     public void onEnable(Chronicles plugin) {
@@ -34,10 +34,10 @@ public class ClassModule implements ChroniclesModule {
 
     public void setClass(PlayerProfile profile, PlayerClass newClass) {
         PlayerClass old = registry.get(profile.getClassId());
-        profile.getStats().beginBatch();
-        if (old != null) profile.getStats().removeModifiersFromSource("class:" + old.getId());
-        for (StatModifier m : newClass.getStatModifiers()) profile.getStats().addModifier(m);
-        profile.getStats().endBatch();
+        profile.getAttributes().beginBatch();
+        if (old != null) profile.getAttributes().removeModifiersFromSource("class:" + old.getId());
+        for (AttributeModifier m : newClass.getAttributeModifiers()) profile.getAttributes().addModifier(m);
+        profile.getAttributes().endBatch();
         profile.setClassId(newClass.getId());
         bus.publish(new ClassChangeEvent(profile, old, newClass));
     }
@@ -46,9 +46,9 @@ public class ClassModule implements ChroniclesModule {
         if (profile.getClassId() == null) return;
         PlayerClass cls = registry.get(profile.getClassId());
         if (cls == null) return;
-        profile.getStats().beginBatch();
-        for (StatModifier m : cls.getStatModifiers()) profile.getStats().addModifier(m);
-        profile.getStats().endBatch();
+        profile.getAttributes().beginBatch();
+        for (AttributeModifier m : cls.getAttributeModifiers()) profile.getAttributes().addModifier(m);
+        profile.getAttributes().endBatch();
     }
 
     @Override
